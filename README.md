@@ -48,8 +48,8 @@ python3 app.py
 
 ### **Access Your API**
 
-- **Local**: `http://localhost:9079`
-- **Network**: `http://YOUR_VPS_IP:9079`
+- **Local**: `http://localhost:8080`
+- **Network**: `http://YOUR_VPS_IP:8080`
 
 ---
 
@@ -57,7 +57,7 @@ python3 app.py
 
 ### **Base URL**
 ```
-http://YOUR_VPS_IP:9079
+http://YOUR_VPS_IP:8080
 ```
 
 ### **1. Download Anime Episode**
@@ -75,18 +75,18 @@ Downloads a specific episode of an anime series.
 **Examples:**
 ```bash
 # Download Naruto Season 1 Episode 1 (Subbed)
-curl "http://YOUR_VPS_IP:9079/?name=naruto&season=1&episode=1&dubbed=no" -O
+curl "http://YOUR_VPS_IP:8080/?name=naruto&season=1&episode=1&dubbed=no" -O
 
 # Download Attack on Titan Season 2 Episode 5 (Dubbed)
-curl "http://YOUR_VPS_IP:9079/?name=attack-on-titan&season=2&episode=5&dubbed=yes" -O
+curl "http://YOUR_VPS_IP:8080/?name=attack-on-titan&season=2&episode=5&dubbed=yes" -O
 
 # Download One Piece Episode 100
-curl "http://YOUR_VPS_IP:9079/?name=one-piece&episode=100&dubbed=no" -O
+curl "http://YOUR_VPS_IP:8080/?name=one-piece&episode=100&dubbed=no" -O
 ```
 
 **Browser Usage:**
 ```
-http://YOUR_VPS_IP:9079/?name=naruto&season=1&episode=1&dubbed=no
+http://YOUR_VPS_IP:8080/?name=naruto&season=1&episode=1&dubbed=no
 ```
 Just paste in browser - file downloads automatically!
 
@@ -118,18 +118,18 @@ Downloads an anime movie.
 **Examples:**
 ```bash
 # Download "Your Name" (Subbed)
-curl "http://YOUR_VPS_IP:9079/?movie=your-name&dubbed=no" -O
+curl "http://YOUR_VPS_IP:8080/?movie=your-name&dubbed=no" -O
 
 # Download "Spirited Away" (Dubbed)
-curl "http://YOUR_VPS_IP:9079/?movie=spirited-away&dubbed=yes" -O
+curl "http://YOUR_VPS_IP:8080/?movie=spirited-away&dubbed=yes" -O
 
 # Download "Demon Slayer Movie"
-curl "http://YOUR_VPS_IP:9079/?movie=demon-slayer-mugen-train&dubbed=no" -O
+curl "http://YOUR_VPS_IP:8080/?movie=demon-slayer-mugen-train&dubbed=no" -O
 ```
 
 **Browser Usage:**
 ```
-http://YOUR_VPS_IP:9079/?movie=your-name&dubbed=no
+http://YOUR_VPS_IP:8080/?movie=your-name&dubbed=no
 ```
 
 **Response:**
@@ -150,10 +150,10 @@ Search for anime by name.
 **Examples:**
 ```bash
 # Search for Naruto
-curl "http://YOUR_VPS_IP:9079/search?q=naruto"
+curl "http://YOUR_VPS_IP:8080/search?q=naruto"
 
 # Search for Attack on Titan
-curl "http://YOUR_VPS_IP:9079/search?q=attack-on-titan"
+curl "http://YOUR_VPS_IP:8080/search?q=attack-on-titan"
 ```
 
 **Response:**
@@ -194,10 +194,10 @@ Get detailed information about a specific anime including all episodes.
 **Examples:**
 ```bash
 # Get info for Naruto
-curl "http://YOUR_VPS_IP:9079/info?name=naruto"
+curl "http://YOUR_VPS_IP:8080/info?name=naruto"
 
 # Get info for One Piece
-curl "http://YOUR_VPS_IP:9079/info?name=one-piece"
+curl "http://YOUR_VPS_IP:8080/info?name=one-piece"
 ```
 
 **Response:**
@@ -239,7 +239,7 @@ Check API health and available endpoints.
 
 **Example:**
 ```bash
-curl "http://YOUR_VPS_IP:9079/status"
+curl "http://YOUR_VPS_IP:8080/status"
 ```
 
 **Response:**
@@ -270,7 +270,7 @@ curl "http://YOUR_VPS_IP:9079/status"
 # Download all episodes of Naruto Season 1
 
 for ep in {1..220}; do
-  curl "http://YOUR_VPS_IP:9079/?name=naruto&season=1&episode=$ep&dubbed=no" \
+  curl "http://YOUR_VPS_IP:8080/?name=naruto&season=1&episode=$ep&dubbed=no" \
     -o "Naruto_S01E$(printf %03d $ep).mp4"
   echo "Downloaded episode $ep"
   sleep 2  # Be nice to the server
@@ -283,7 +283,7 @@ done
 import requests
 
 # Download an episode
-url = "http://YOUR_VPS_IP:9079/"
+url = "http://YOUR_VPS_IP:8080/"
 params = {
     "name": "naruto",
     "season": 1,
@@ -302,13 +302,13 @@ if response.status_code == 200:
 
 ```bash
 # 1. Search for anime
-curl "http://YOUR_VPS_IP:9079/search?q=demon-slayer"
+curl "http://YOUR_VPS_IP:8080/search?q=demon-slayer"
 
 # 2. Get detailed info
-curl "http://YOUR_VPS_IP:9079/info?name=demon-slayer"
+curl "http://YOUR_VPS_IP:8080/info?name=demon-slayer"
 
 # 3. Download specific episode
-curl "http://YOUR_VPS_IP:9079/?name=demon-slayer&season=1&episode=1&dubbed=no" -O
+curl "http://YOUR_VPS_IP:8080/?name=demon-slayer&season=1&episode=1&dubbed=no" -O
 ```
 
 ---
@@ -385,7 +385,7 @@ server {
     proxy_read_timeout 600s;
 
     location / {
-        proxy_pass http://127.0.0.1:9079;
+        proxy_pass http://127.0.0.1:8080;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
     }
@@ -418,8 +418,8 @@ yt-dlp --version
 
 ### **Port Already in Use**
 ```bash
-# Find process using port 9079
-sudo lsof -i :9079
+# Find process using port 8080
+sudo lsof -i :8080
 
 # Kill process
 sudo kill -9 <PID>
@@ -448,7 +448,7 @@ sudo kill -9 <PID>
 ### **Recommended Security**
 ```bash
 # Firewall (allow only specific IPs)
-sudo ufw allow from YOUR_IP to any port 9079
+sudo ufw allow from YOUR_IP to any port 8080
 
 # Or use Nginx with authentication
 # Or run behind VPN (WireGuard/Tailscale)
@@ -484,7 +484,7 @@ MIT License - Free to use, modify, and distribute.
 ```python
 @bot.command()
 async def anime(ctx, name, episode):
-    url = f"http://YOUR_VPS:9079/?name={name}&episode={episode}&dubbed=no"
+    url = f"http://YOUR_VPS:8080/?name={name}&episode={episode}&dubbed=no"
     await ctx.send(f"Download: {url}")
 ```
 
@@ -494,7 +494,7 @@ async def anime(ctx, name, episode):
 def download_anime(message):
     # Parse: /download naruto 1
     _, name, ep = message.text.split()
-    url = f"http://YOUR_VPS:9079/?name={name}&episode={ep}"
+    url = f"http://YOUR_VPS:8080/?name={name}&episode={ep}"
     bot.send_message(message.chat.id, f"Download link: {url}")
 ```
 
@@ -502,7 +502,7 @@ def download_anime(message):
 ```javascript
 // React Native / Flutter
 const downloadEpisode = async (anime, season, episode) => {
-  const url = `http://YOUR_VPS:9079/?name=${anime}&season=${season}&episode=${episode}&dubbed=no`;
+  const url = `http://YOUR_VPS:8080/?name=${anime}&season=${season}&episode=${episode}&dubbed=no`;
   // Use native download manager
   RNFetchBlob.config({ ... }).fetch('GET', url);
 };
