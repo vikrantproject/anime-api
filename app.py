@@ -41,8 +41,8 @@
  5) Run:
     python3 app.py
 
- 6) Access: http://YOUR_VPS_IP:9079
-    Firewall: sudo ufw allow 9079/tcp
+ 6) Access: http://YOUR_VPS_IP:8080
+    Firewall: sudo ufw allow 8080/tcp
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 """
 
@@ -67,7 +67,7 @@ import requests as httpx
 
 # ── Config ────────────────────────────────────────────────────────────────
 HOST         = '0.0.0.0'
-PORT         = 9079
+PORT         = 8080
 DOWNLOAD_DIR = os.path.expanduser('~/anime_downloads')
 JIKAN        = 'https://api.jikan.moe/v4'
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
